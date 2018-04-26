@@ -109,6 +109,7 @@ namespace Form1
                         MySqlDataAdapter adapter = new MySqlDataAdapter(cons, sqlconn);
                         DataTable dt = new DataTable();
                         adapter.Fill(dt);
+                      
 
                         sqlconn.Close();
 
