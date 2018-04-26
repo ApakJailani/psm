@@ -1,0 +1,12 @@
+c:\users\nitro5\documents\visual studio 2010\Projects\Form1\Form1\bin\Debug\Form1.exe
+c:\users\nitro5\documents\visual studio 2010\Projects\Form1\Form1\bin\Debug\Form1.pdb
+c:\users\nitro5\documents\visual studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.Properties.Resources.resources
+c:\users\nitro5\documents\visual studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.csproj.GenerateResource.Cache
+c:\users\nitro5\documents\visual studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.exe
+c:\users\nitro5\documents\visual studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.pdb
+C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.csprojResolveAssemblyReference.cache
+C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.FormLogin.resources
+C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.FormMain.resources
+C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.FormAdd.resources
+C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.Log.resources
+C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.LogHistory.resources
