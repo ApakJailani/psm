@@ -40,7 +40,6 @@
             this.lblTimer = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtCarid = new System.Windows.Forms.TextBox();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.lblInOut = new System.Windows.Forms.Label();
             this.lblUid = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
@@ -109,7 +108,7 @@
             // lblTimer
             // 
             this.lblTimer.AutoSize = true;
-            this.lblTimer.Location = new System.Drawing.Point(403, 9);
+            this.lblTimer.Location = new System.Drawing.Point(375, 9);
             this.lblTimer.Name = "lblTimer";
             this.lblTimer.Size = new System.Drawing.Size(33, 13);
             this.lblTimer.TabIndex = 6;
@@ -128,15 +127,6 @@
             this.txtCarid.Name = "txtCarid";
             this.txtCarid.Size = new System.Drawing.Size(100, 20);
             this.txtCarid.TabIndex = 7;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(224, 135);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(37, 13);
-            this.lblStatus.TabIndex = 8;
-            this.lblStatus.Text = "Status";
             // 
             // lblInOut
             // 
@@ -194,7 +184,6 @@
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblUid);
             this.Controls.Add(this.lblInOut);
-            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.txtCarid);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblTimer);
@@ -226,7 +215,6 @@
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtCarid;
-        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblInOut;
         private System.Windows.Forms.Label lblUid;
         private System.Windows.Forms.Label lblName;
