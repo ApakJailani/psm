@@ -68,6 +68,7 @@ namespace Form1
                         txtCarid.Text = "";
                         lblInOut.Text = "";
                         lblStatus.Text = "Status";
+
                     }  
               
                 

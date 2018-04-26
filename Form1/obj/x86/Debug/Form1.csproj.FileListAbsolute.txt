@@ -10,3 +10,4 @@ C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\
 C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.FormAdd.resources
 C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.Log.resources
 C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.LogHistory.resources
+C:\Users\Nitro5\Documents\Visual Studio 2010\Projects\Form1\Form1\obj\x86\Debug\Form1.Form1.resources
