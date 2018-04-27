@@ -80,7 +80,7 @@ namespace Form1
 
         public void dataLoop()
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             string txtUid, txtName, txtCarid, lblInOut;
             if (serialPort1.IsOpen)
             {
@@ -94,14 +94,14 @@ namespace Form1
                 MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
                 MySqlCommand command;
                 MySqlDataReader mdr;
-                try
-                {
-
+                //try
+                //{
+                    
                     sqlconn.Open();
                     //string selectQuery = string.Format("SELECT * FROM user WHERE uid LIKE '%{0}%'",txtUid.Text);
                     string selectQuery = string.Format("SELECT * FROM user WHERE uid = '" + txtUid + "' and status = 'OUT'");
                     command = new MySqlCommand(selectQuery, sqlconn);
-
+                    
 
                     mdr = command.ExecuteReader();
                     if (mdr.Read())
@@ -133,14 +133,15 @@ namespace Form1
 
                         MessageBox.Show("Success");
 
-                }
-
-                }
-                catch (Exception t)
-                {
-                    
-                        MessageBox.Show(t.Message);
                     }
+                        
+
+               //}
+               // catch (Exception t)
+               // {
+                    
+                   //     MessageBox.Show(t.Message);
+                  //  }
 
                 
             }
