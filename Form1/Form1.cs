@@ -36,7 +36,7 @@ namespace Form1
         }
         private void SetInOut(string InOut)
         {
-            this.lblInOut.Text = InOut;
+            this.txtInOut.Text = InOut;
         }
         private void SetName2(string Nama2)
         {
@@ -49,13 +49,15 @@ namespace Form1
         }
         private void SetInOut2(string InOut2)
         {
-            this.lblInOut.Text = InOut2;
+            this.txtInOut.Text = InOut2;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             string[] ports = SerialPort.GetPortNames();
             cboPort.Items.AddRange(ports);
+            //serialPort1.DtrEnable = true;
+            //serialPort1.RtsEnable = true;
             //cboPort.SelectedIndex = 0;
             btnClose.Enabled = false;
         }
@@ -80,71 +82,145 @@ namespace Form1
 
         public void dataLoop()
         {
+            //int Lock = 0, Con = 0;
             //Thread.Sleep(5000);
-            string txtUid, txtName, txtCarid, lblInOut;
+            string txtUid, txtName, txtCarid, txtInOut;
             if (serialPort1.IsOpen)
             {
-
+                //serialPort1.DiscardInBuffer();
                 SetTextCallback d = new SetTextCallback(SetText);
                 this.Invoke(d, new object[] { txtUid = serialPort1.ReadLine() });
                 //serialPort1.Close();
                 //txtUid.Text = entrada;
                 //this.Invoke(d, new object[] { text + " (Invoke)" });
-
                 MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
                 MySqlCommand command;
-                MySqlDataReader mdr;
+
+
+                DataSet ds = new DataSet();
+
                 //try
                 //{
-                    
-                    sqlconn.Open();
-                    //string selectQuery = string.Format("SELECT * FROM user WHERE uid LIKE '%{0}%'",txtUid.Text);
-                    string selectQuery = string.Format("SELECT * FROM user WHERE uid = '" + txtUid + "' and status = 'OUT'");
-                    command = new MySqlCommand(selectQuery, sqlconn);
-                    
+                sqlconn.Open();
+                //string selectQuery = string.Format("SELECT * FROM user WHERE uid LIKE '%{0}%'",txtUid.Text);
+                string Query = string.Format("SELECT uid FROM user WHERE uid = '" + txtUid + "'");
+                MySqlDataAdapter da = new MySqlDataAdapter(Query, sqlconn);
+                da.Fill(ds);
+                int i = ds.Tables[0].Rows.Count;
+                if (i > 0)
+                {
 
-                    mdr = command.ExecuteReader();
-                    if (mdr.Read())
-                    {
-                        SetTextCallback Nama = new SetTextCallback(SetName);
-                        this.Invoke(Nama, new object[] { txtName = mdr.GetString("name") });
-                        SetTextCallback Carid = new SetTextCallback(SetCarId);
-                        this.Invoke(Carid, new object[] { txtCarid = mdr.GetString("carid") });
+ 
+                    //serialPort1.Close();
+                    string check = string.Format("SELECT status FROM user WHERE uid = '" + txtUid + "'");
+                    command = new MySqlCommand(check, sqlconn);
+                    MySqlDataReader drr;
+                    drr = command.ExecuteReader();
+                    //txtInOut = "status";
+                    drr.Read();
+                    
                         SetTextCallback InOut = new SetTextCallback(SetInOut);
-                        this.Invoke(InOut, new object[] { lblInOut = "IN" });
-                        sqlconn.Close();
+                        this.Invoke(InOut, new object[] { txtInOut = drr.GetString("status") });
+                        drr.Close();
+                    if (txtInOut == "OUT")
+                    {
+                        string selectQuery = string.Format("SELECT * FROM user WHERE uid = '" + txtUid + "' and status = 'OUT'");
+                        command = new MySqlCommand(selectQuery, sqlconn);
 
-                        sqlconn.Open();
-                        string query = string.Format("UPDATE user set status = 'IN' WHERE uid = '" + txtUid + "'");
-                        MySqlDataAdapter adapter = new MySqlDataAdapter(query, sqlconn);
-                        DataTable tb = new DataTable();
-                        adapter.Fill(tb);
+                        //MySqlDataReader mdr;
+                        drr = command.ExecuteReader();
+                        if (drr.Read())
+                        {
+                            //Lock = 0;
+                            //Con = 0;
+                            
 
-                        sqlconn.Close();
+                            SetTextCallback Nama = new SetTextCallback(SetName);
+                            this.Invoke(Nama, new object[] { txtName = drr.GetString("name") });
+                            SetTextCallback Carid = new SetTextCallback(SetCarId);
+                            this.Invoke(Carid, new object[] { txtCarid = drr.GetString("carid") });
+                            SetTextCallback InOut2 = new SetTextCallback(SetInOut2);
+                            this.Invoke(InOut2, new object[] { txtInOut = "IN" });
+                            sqlconn.Close();
 
-                        sqlconn.Open();
-                        string cons = string.Format("INSERT INTO log(Name,CardID,Status,Time,VehicleID)VALUES('" + txtName + "','" + txtUid + "','" + lblInOut + "','" + DateTime.Now.ToString("dd-MM-yyyy--h:m:tt", System.Globalization.CultureInfo.InvariantCulture) + "','" + txtCarid + "')");
-                        adapter = new MySqlDataAdapter(cons, sqlconn);
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
+                            sqlconn.Open();
+                            string query = string.Format("UPDATE user set status = 'IN' WHERE uid = '" + txtUid + "'");
+                            MySqlDataAdapter adapter = new MySqlDataAdapter(query, sqlconn);
+                            DataTable tb = new DataTable();
+                            adapter.Fill(tb);
 
+                            sqlconn.Close();
 
-                        sqlconn.Close();
+                            sqlconn.Open();
+                            string cons = string.Format("INSERT INTO log(Name,CardID,Status,Time,VehicleID)VALUES('" + txtName + "','" + txtUid + "','" + txtInOut + "','" + DateTime.Now.ToString("dd-MM-yyyy--h:m:tt", System.Globalization.CultureInfo.InvariantCulture) + "','" + txtCarid + "')");
+                            adapter = new MySqlDataAdapter(cons, sqlconn);
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
 
-                        MessageBox.Show("Success");
+                           
+                            sqlconn.Close();
+                            MessageBox.Show("Success IN");
 
+                            //serialPort1.Write("1");
+
+                        }
                     }
+                    else
+                    {
                         
+                        string selectQuery2 = string.Format("SELECT * FROM user WHERE uid = '" + txtUid + "' and status = 'IN'");
+                        command = new MySqlCommand(selectQuery2, sqlconn);
 
-               //}
-               // catch (Exception t)
-               // {
-                    
-                   //     MessageBox.Show(t.Message);
-                  //  }
+                        //MySqlDataReader md;
+                        drr = command.ExecuteReader();
+                        if (drr.Read())
+                        {
+                            //Lock = 0;
+                            //Con = 1;
+                            
 
-                
+                            SetTextCallback Nama = new SetTextCallback(SetName);
+                            this.Invoke(Nama, new object[] { txtName = drr.GetString("name") });
+                            SetTextCallback Carid = new SetTextCallback(SetCarId);
+                            this.Invoke(Carid, new object[] { txtCarid = drr.GetString("carid") });
+                            SetTextCallback InOut2 = new SetTextCallback(SetInOut2);
+                            this.Invoke(InOut2, new object[] { txtInOut = "OUT" });
+                            sqlconn.Close();
+
+                            sqlconn.Open();
+                            string query = string.Format("UPDATE user set status = 'OUT' WHERE uid = '" + txtUid + "'");
+                            MySqlDataAdapter adapter = new MySqlDataAdapter(query, sqlconn);
+                            DataTable tb = new DataTable();
+                            adapter.Fill(tb);
+
+                            sqlconn.Close();
+
+                            sqlconn.Open();
+                            string cons = string.Format("INSERT INTO log(Name,CardID,Status,Time,VehicleID)VALUES('" + txtName + "','" + txtUid + "','" + txtInOut + "','" + DateTime.Now.ToString("dd-MM-yyyy--h:m:tt", System.Globalization.CultureInfo.InvariantCulture) + "','" + txtCarid + "')");
+                            adapter = new MySqlDataAdapter(cons, sqlconn);
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+
+
+                            sqlconn.Close();
+                            MessageBox.Show("Success OUT");
+
+                            //serialPort1.Write("2");
+
+                        }
+
+                    } 
+                    drr.Close();
+                    serialPort1.WriteLine("1");
+                }
+                else
+                {
+                    //txtUid = "";
+                    serialPort1.Write("2");
+                    MessageBox.Show("Invalid Card");
+                }
             }
+ 
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -170,12 +246,15 @@ namespace Form1
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            //serialPort1.Open();
             txtUid.Clear();
             txtName.Clear();
             txtCarid.Clear();
-            lblInOut.Text = "......";
+            txtInOut.Clear();
+            //serialPort1.DiscardInBuffer();
             Thread workerThread = new Thread(dataLoop);
             workerThread.Start();
+            
             //if (serialPort1.IsOpen)
                // serialPort1.Close();
         }
@@ -190,9 +269,9 @@ namespace Form1
         {
             FormLogin fl = new FormLogin();
             fl.Show();
-            this.Hide();
+            //this.Hide();
         }
 
-       
+    
     }
 }

@@ -40,11 +40,11 @@
             this.lblTimer = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtCarid = new System.Windows.Forms.TextBox();
-            this.lblInOut = new System.Windows.Forms.Label();
             this.lblUid = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblCarid = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.txtInOut = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -128,15 +128,6 @@
             this.txtCarid.Size = new System.Drawing.Size(100, 20);
             this.txtCarid.TabIndex = 7;
             // 
-            // lblInOut
-            // 
-            this.lblInOut.AutoSize = true;
-            this.lblInOut.Location = new System.Drawing.Point(234, 101);
-            this.lblInOut.Name = "lblInOut";
-            this.lblInOut.Size = new System.Drawing.Size(19, 13);
-            this.lblInOut.TabIndex = 9;
-            this.lblInOut.Text = "....";
-            // 
             // lblUid
             // 
             this.lblUid.AutoSize = true;
@@ -174,16 +165,24 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // txtInOut
+            // 
+            this.txtInOut.Location = new System.Drawing.Point(197, 113);
+            this.txtInOut.Name = "txtInOut";
+            this.txtInOut.Size = new System.Drawing.Size(100, 20);
+            this.txtInOut.TabIndex = 12;
+            
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 495);
+            this.Controls.Add(this.txtInOut);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lblCarid);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblUid);
-            this.Controls.Add(this.lblInOut);
             this.Controls.Add(this.txtCarid);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblTimer);
@@ -215,11 +214,11 @@
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtCarid;
-        private System.Windows.Forms.Label lblInOut;
         private System.Windows.Forms.Label lblUid;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblCarid;
         private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.TextBox txtInOut;
     }
 }
 
