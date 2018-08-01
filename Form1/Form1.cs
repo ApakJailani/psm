@@ -15,7 +15,7 @@ namespace Form1
     delegate void SetTextCallback(string txtUid);
     public partial class Form1 : Form
     {
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -51,6 +51,11 @@ namespace Form1
         {
             this.txtInOut.Text = InOut2;
         }
+        private void SetPark(string park)
+        {
+            this.txtParking.Text = park;
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -60,6 +65,22 @@ namespace Form1
             //serialPort1.RtsEnable = true;
             //cboPort.SelectedIndex = 0;
             btnClose.Enabled = false;
+
+            //MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
+            //MySqlCommand command;
+            //sqlconn.Open();
+            //MySqlDataReader mdr;
+            //string parkk = string.Format("SELECT QtyParking FROM parking");
+            //command = new MySqlCommand(parkk, sqlconn);
+            //mdr = command.ExecuteReader();
+            //if (mdr.Read())
+            //{
+                //SetTextCallback park = new SetTextCallback(SetPark);
+                //this.Invoke(park, new object[] { txtParking.Text = mdr.GetString("QtyParking") });
+            //}
+            //mdr.Close();
+            //sqlconn.Close();
+
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -82,6 +103,9 @@ namespace Form1
 
         public void dataLoop()
         {
+
+
+
             //int Lock = 0, Con = 0;
             //Thread.Sleep(5000);
             string txtUid, txtName, txtCarid, txtInOut;
@@ -96,12 +120,15 @@ namespace Form1
                 MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
                 MySqlCommand command;
 
-
+                sqlconn.Open();
                 DataSet ds = new DataSet();
+                
+
+
 
                 //try
                 //{
-                sqlconn.Open();
+                //sqlconn.Open();
                 //string selectQuery = string.Format("SELECT * FROM user WHERE uid LIKE '%{0}%'",txtUid.Text);
                 string Query = string.Format("SELECT uid FROM user WHERE uid = '" + txtUid + "'");
                 MySqlDataAdapter da = new MySqlDataAdapter(Query, sqlconn);
@@ -133,7 +160,7 @@ namespace Form1
                         {
                             //Lock = 0;
                             //Con = 0;
-                            
+
 
                             SetTextCallback Nama = new SetTextCallback(SetName);
                             this.Invoke(Nama, new object[] { txtName = drr.GetString("name") });
@@ -144,21 +171,33 @@ namespace Form1
                             sqlconn.Close();
 
                             sqlconn.Open();
+                            MySqlCommand cmd = sqlconn.CreateCommand();
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = "UPDATE parking set QtyParking = QtyParking-1";
+                            cmd.ExecuteNonQuery();
+                            
+                            
+                            //SetTextCallback park = new SetTextCallback(SetPark);
+                            //this.Invoke(park, new object[] { lblParking.Text = dd.GetString("QtyParking") });
+                            sqlconn.Close();
+
+                            sqlconn.Open();
                             string query = string.Format("UPDATE user set status = 'IN' WHERE uid = '" + txtUid + "'");
                             MySqlDataAdapter adapter = new MySqlDataAdapter(query, sqlconn);
                             DataTable tb = new DataTable();
                             adapter.Fill(tb);
-
                             sqlconn.Close();
+
 
                             sqlconn.Open();
                             string cons = string.Format("INSERT INTO log(Name,CardID,Status,Time,VehicleID)VALUES('" + txtName + "','" + txtUid + "','" + txtInOut + "','" + DateTime.Now.ToString("dd-MM-yyyy--h:m:tt", System.Globalization.CultureInfo.InvariantCulture) + "','" + txtCarid + "')");
                             adapter = new MySqlDataAdapter(cons, sqlconn);
                             DataTable dt = new DataTable();
                             adapter.Fill(dt);
-
-                           
                             sqlconn.Close();
+
+                            
+
                             MessageBox.Show("Success IN");
 
                             //serialPort1.Write("1");
@@ -185,6 +224,18 @@ namespace Form1
                             this.Invoke(Carid, new object[] { txtCarid = drr.GetString("carid") });
                             SetTextCallback InOut2 = new SetTextCallback(SetInOut2);
                             this.Invoke(InOut2, new object[] { txtInOut = "OUT" });
+                            sqlconn.Close();
+
+                            sqlconn.Open();
+                            MySqlCommand cmd = sqlconn.CreateCommand();
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = "UPDATE parking set QtyParking = QtyParking+1";
+                            //MySqlDataReader dd;
+                            cmd.ExecuteNonQuery();
+                            //dd = cmd.ExecuteReader();
+
+                            //SetTextCallback park = new SetTextCallback(SetPark);
+                            //this.Invoke(park, new object[] { lblParking.Text = dd.GetString("QtyParking") });
                             sqlconn.Close();
 
                             sqlconn.Open();
@@ -219,6 +270,7 @@ namespace Form1
                     serialPort1.Write("2");
                     MessageBox.Show("Invalid Card");
                 }
+
             }
  
         }
@@ -271,7 +323,6 @@ namespace Form1
             fl.Show();
             //this.Hide();
         }
-
     
     }
 }

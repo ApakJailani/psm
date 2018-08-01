@@ -45,6 +45,9 @@
             this.lblCarid = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.txtInOut = new System.Windows.Forms.TextBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblParking = new System.Windows.Forms.Label();
+            this.txtParking = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -171,13 +174,39 @@
             this.txtInOut.Name = "txtInOut";
             this.txtInOut.Size = new System.Drawing.Size(100, 20);
             this.txtInOut.TabIndex = 12;
-            
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(122, 116);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(37, 13);
+            this.lblStatus.TabIndex = 13;
+            this.lblStatus.Text = "Status";
+            // 
+            // lblParking
+            // 
+            this.lblParking.AutoSize = true;
+            this.lblParking.Location = new System.Drawing.Point(228, 77);
+            this.lblParking.Name = "lblParking";
+            this.lblParking.Size = new System.Drawing.Size(0, 13);
+            this.lblParking.TabIndex = 14;
+            // 
+            // txtParking
+            // 
+            this.txtParking.Location = new System.Drawing.Point(197, 77);
+            this.txtParking.Name = "txtParking";
+            this.txtParking.Size = new System.Drawing.Size(100, 20);
+            this.txtParking.TabIndex = 15;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 495);
+            this.Controls.Add(this.txtParking);
+            this.Controls.Add(this.lblParking);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.txtInOut);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lblCarid);
@@ -219,6 +248,9 @@
         private System.Windows.Forms.Label lblCarid;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.TextBox txtInOut;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblParking;
+        private System.Windows.Forms.TextBox txtParking;
     }
 }
 
