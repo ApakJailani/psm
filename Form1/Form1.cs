@@ -66,20 +66,20 @@ namespace Form1
             //cboPort.SelectedIndex = 0;
             btnClose.Enabled = false;
 
-            //MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
-            //MySqlCommand command;
-            //sqlconn.Open();
-            //MySqlDataReader mdr;
-            //string parkk = string.Format("SELECT QtyParking FROM parking");
-            //command = new MySqlCommand(parkk, sqlconn);
-            //mdr = command.ExecuteReader();
-            //if (mdr.Read())
-            //{
-                //SetTextCallback park = new SetTextCallback(SetPark);
-                //this.Invoke(park, new object[] { txtParking.Text = mdr.GetString("QtyParking") });
-            //}
-            //mdr.Close();
-            //sqlconn.Close();
+            MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
+            MySqlCommand command;
+            sqlconn.Open();
+            MySqlDataReader mdr;
+            string parkk = string.Format("SELECT QtyParking FROM parking");
+            command = new MySqlCommand(parkk, sqlconn);
+            mdr = command.ExecuteReader();
+            if (mdr.Read())
+            {
+                SetTextCallback park = new SetTextCallback(SetPark);
+                this.Invoke(park, new object[] { txtParking.Text = mdr.GetString("QtyParking") });
+            }
+            mdr.Close();
+            sqlconn.Close();
 
         }
 
@@ -94,6 +94,7 @@ namespace Form1
                 Thread workerThread = new Thread(dataLoop);
                 workerThread.Start();
                 
+                
             }
             catch (Exception ex)
             {
@@ -103,11 +104,6 @@ namespace Form1
 
         public void dataLoop()
         {
-
-
-
-            //int Lock = 0, Con = 0;
-            //Thread.Sleep(5000);
             string txtUid, txtName, txtCarid, txtInOut;
             if (serialPort1.IsOpen)
             {
@@ -298,17 +294,31 @@ namespace Form1
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            //serialPort1.Open();
+
             txtUid.Clear();
             txtName.Clear();
             txtCarid.Clear();
             txtInOut.Clear();
-            //serialPort1.DiscardInBuffer();
+            txtParking.Clear();
+
+            MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
+            MySqlCommand command;
+            sqlconn.Open();
+            MySqlDataReader mdr;
+            string parkk = string.Format("SELECT QtyParking FROM parking");
+            command = new MySqlCommand(parkk, sqlconn);
+            mdr = command.ExecuteReader();
+            if (mdr.Read())
+            {
+                SetTextCallback park = new SetTextCallback(SetPark);
+                this.Invoke(park, new object[] { txtParking.Text = mdr.GetString("QtyParking") });
+            }
+            mdr.Close();
+            sqlconn.Close();
+
             Thread workerThread = new Thread(dataLoop);
             workerThread.Start();
-            
-            //if (serialPort1.IsOpen)
-               // serialPort1.Close();
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
