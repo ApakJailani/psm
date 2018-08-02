@@ -29,7 +29,7 @@ namespace Form1
         {
             try
             {
-                string cons = string.Format("INSERT INTO psm.user(name,uid,type,carid,time,status)VALUES('"+ txtName.Text +"','"+ txtUid.Text +"','"+ txtType.Text +"','"+ txtCarid.Text +"','"+ DateTime.Now.ToString("dd-MM-yyyy") + "','"+txtStatus.Text +"')");
+                string cons = string.Format("INSERT INTO psm.user(name,uid,type,carid,time,status)VALUES('"+ txtName.Text +"','"+ txtUid.Text +"','"+ txtType.Text +"','"+ txtCarid.Text +"','"+ DateTime.Now.ToString("dd-MM-yyyy") + "','OUT')");
                 MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
                 MySqlDataAdapter adapter = new MySqlDataAdapter(cons, sqlconn);
                 //MySqlCommandBuilder comando = new MySqlCommandBuilder(adaptador);

@@ -33,5 +33,11 @@ namespace Form1
             LogHistory lh = new LogHistory();
             lh.Show();
         }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            Report repo = new Report();
+            repo.Show();
+        }
     }
 }

@@ -30,14 +30,15 @@
         {
             this.btnAddUser = new System.Windows.Forms.Button();
             this.btnLogHistory = new System.Windows.Forms.Button();
+            this.btnReport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddUser
             // 
-            this.btnAddUser.Location = new System.Drawing.Point(94, 43);
-            this.btnAddUser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAddUser.Location = new System.Drawing.Point(125, 53);
+            this.btnAddUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddUser.Name = "btnAddUser";
-            this.btnAddUser.Size = new System.Drawing.Size(81, 56);
+            this.btnAddUser.Size = new System.Drawing.Size(108, 69);
             this.btnAddUser.TabIndex = 0;
             this.btnAddUser.Text = "Add User";
             this.btnAddUser.UseVisualStyleBackColor = true;
@@ -45,23 +46,35 @@
             // 
             // btnLogHistory
             // 
-            this.btnLogHistory.Location = new System.Drawing.Point(232, 42);
-            this.btnLogHistory.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLogHistory.Location = new System.Drawing.Point(309, 52);
+            this.btnLogHistory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLogHistory.Name = "btnLogHistory";
-            this.btnLogHistory.Size = new System.Drawing.Size(74, 57);
+            this.btnLogHistory.Size = new System.Drawing.Size(99, 70);
             this.btnLogHistory.TabIndex = 2;
             this.btnLogHistory.Text = "Log History";
             this.btnLogHistory.UseVisualStyleBackColor = true;
             this.btnLogHistory.Click += new System.EventHandler(this.btnLogHistory_Click);
             // 
+            // btnReport
+            // 
+            this.btnReport.Location = new System.Drawing.Point(501, 52);
+            this.btnReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(99, 70);
+            this.btnReport.TabIndex = 3;
+            this.btnReport.Text = "Report";
+            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
+            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 494);
+            this.ClientSize = new System.Drawing.Size(1019, 608);
+            this.Controls.Add(this.btnReport);
             this.Controls.Add(this.btnLogHistory);
             this.Controls.Add(this.btnAddUser);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormMain";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -75,5 +88,6 @@
 
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.Button btnLogHistory;
+        private System.Windows.Forms.Button btnReport;
     }
 }

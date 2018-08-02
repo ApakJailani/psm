@@ -12,14 +12,16 @@ using MySql.Data.MySqlClient;
 
 namespace Form1
 {
-    delegate void SetTextCallback(string txtUid);
+    //delegate void SetTextCallback(string txtUid);
     public partial class Form1 : Form
     {
         
+        delegate void SetTextCallback(string txtUid);
         public Form1()
         {
             InitializeComponent();
             timer1.Start();
+  
         }
         private void SetText(string text)
         {
@@ -65,7 +67,7 @@ namespace Form1
             //serialPort1.RtsEnable = true;
             //cboPort.SelectedIndex = 0;
             btnClose.Enabled = false;
-
+            
             MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
             MySqlCommand command;
             sqlconn.Open();
@@ -80,7 +82,7 @@ namespace Form1
             }
             mdr.Close();
             sqlconn.Close();
-
+            
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -88,12 +90,11 @@ namespace Form1
             btnOpen.Enabled = false;
             btnClose.Enabled = true;
             try
-            {
+            {   
                 serialPort1.PortName = cboPort.Text;
                 serialPort1.Open();
                 Thread workerThread = new Thread(dataLoop);
                 workerThread.Start();
-                
                 
             }
             catch (Exception ex)
@@ -102,11 +103,22 @@ namespace Form1
             }
         }
 
+        public void ledOn()
+        {
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Write("1");
+            }
+        }
+
+
         public void dataLoop()
         {
+
             string txtUid, txtName, txtCarid, txtInOut;
             if (serialPort1.IsOpen)
             {
+                
                 //serialPort1.DiscardInBuffer();
                 SetTextCallback d = new SetTextCallback(SetText);
                 this.Invoke(d, new object[] { txtUid = serialPort1.ReadLine() });
@@ -119,21 +131,12 @@ namespace Form1
                 sqlconn.Open();
                 DataSet ds = new DataSet();
                 
-
-
-
-                //try
-                //{
-                //sqlconn.Open();
-                //string selectQuery = string.Format("SELECT * FROM user WHERE uid LIKE '%{0}%'",txtUid.Text);
                 string Query = string.Format("SELECT uid FROM user WHERE uid = '" + txtUid + "'");
                 MySqlDataAdapter da = new MySqlDataAdapter(Query, sqlconn);
                 da.Fill(ds);
                 int i = ds.Tables[0].Rows.Count;
                 if (i > 0)
                 {
-
- 
                     //serialPort1.Close();
                     string check = string.Format("SELECT status FROM user WHERE uid = '" + txtUid + "'");
                     command = new MySqlCommand(check, sqlconn);
@@ -258,12 +261,12 @@ namespace Form1
 
                     } 
                     drr.Close();
-                    serialPort1.WriteLine("1");
+                    //serialPort1.WriteLine("1");
                 }
                 else
                 {
                     //txtUid = "";
-                    serialPort1.Write("2");
+                    //serialPort1.Write("2");
                     MessageBox.Show("Invalid Card");
                 }
 
@@ -318,7 +321,6 @@ namespace Form1
 
             Thread workerThread = new Thread(dataLoop);
             workerThread.Start();
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
