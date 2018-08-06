@@ -189,7 +189,7 @@ namespace Form1
 
 
                             sqlconn.Open();
-                            string cons = string.Format("INSERT INTO log(Name,CardID,Status,Time,VehicleID)VALUES('" + txtName + "','" + txtUid + "','" + txtInOut + "','" + DateTime.Now.ToString("dd-MM-yyyy--h:m:tt", System.Globalization.CultureInfo.InvariantCulture) + "','" + txtCarid + "')");
+                            string cons = string.Format("INSERT INTO log(Name,CardID,Status,Time,Date,VehicleID)VALUES('" + txtName + "','" + txtUid + "','" + txtInOut + "','" + DateTime.Now.ToString("hh:mm"/*, System.Globalization.CultureInfo.InvariantCulture*/) + "','" + DateTime.Now.ToString("yyyy-MM-dd"/*, System.Globalization.CultureInfo.InvariantCulture*/) + "','" + txtCarid + "')");
                             adapter = new MySqlDataAdapter(cons, sqlconn);
                             DataTable dt = new DataTable();
                             adapter.Fill(dt);
@@ -229,7 +229,6 @@ namespace Form1
                             MySqlCommand cmd = sqlconn.CreateCommand();
                             cmd.CommandType = CommandType.Text;
                             cmd.CommandText = "UPDATE parking set QtyParking = QtyParking+1";
-                            //MySqlDataReader dd;
                             cmd.ExecuteNonQuery();
                             //dd = cmd.ExecuteReader();
 
@@ -246,13 +245,15 @@ namespace Form1
                             sqlconn.Close();
 
                             sqlconn.Open();
-                            string cons = string.Format("INSERT INTO log(Name,CardID,Status,Time,VehicleID)VALUES('" + txtName + "','" + txtUid + "','" + txtInOut + "','" + DateTime.Now.ToString("dd-MM-yyyy--h:m:tt", System.Globalization.CultureInfo.InvariantCulture) + "','" + txtCarid + "')");
+                            string cons = string.Format("INSERT INTO log(Name,CardID,Status,Time,Date,VehicleID)VALUES('" + txtName + "','" + txtUid + "','" + txtInOut + "','" + DateTime.Now.ToString("hh:mm"/*, System.Globalization.CultureInfo.InvariantCulture*/) + "','" + DateTime.Now.ToString("yyyy-MM-dd"/*, System.Globalization.CultureInfo.InvariantCulture*/) + "','" + txtCarid + "')");
+                            //"yyyy-MM-dd-hh:mm"
                             adapter = new MySqlDataAdapter(cons, sqlconn);
                             DataTable dt = new DataTable();
                             adapter.Fill(dt);
 
 
                             sqlconn.Close();
+
                             MessageBox.Show("Success OUT");
 
                             //serialPort1.Write("2");

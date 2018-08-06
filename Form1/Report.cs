@@ -25,18 +25,18 @@ namespace Form1
 
         private void Report_Load(object sender, EventArgs e)
         {
-            string sql = " SELECT Name , CardID , VehicleID , min( Time) as 'IN' , max( Time) as 'OUT', " +
-                         " CAST(((strftime('%s', max(Time) ) - strftime('%s', min(Time) )) % (60 * 60 * 24)) / (60 * 60) AS TEXT) || ';' || " +
-                         " CAST((((strftime('%s', max(Time) ) - strftime('%s', min(Time) )) % (60 * 60 * 24)) % (60 * 60)) / 60 AS TEXT) as 'HOURS' " +
-                         " from log group by Name";
-          
+            connection.Open();
+            //string sql = " SELECT Name , CardID , VehicleID ,Date, min(Time) as 'IN' , max(Time) as 'OUT', (max(Time)-min(Time)) as 'TOTAL'from log group by Name, Date order by Date";
+            string sql = " SELECT Name , CardID , VehicleID , Date, min(Time) as 'IN' , max(Time) as 'OUT', " + " (((max(Time)) - (min(Time))) % (60*60*24)) /(60*60) || ':' || ((((max(Time)) - (min(Time))) % (60*60*24)) %(60*60))/60 as 'TOTAL' from log group by Name , Date order by Date";
+            //string sql = " SELECT Name , CardID , VehicleID ,Date, min(Time) as 'IN' , max(Time) as 'OUT', (((max(Time)) - (min(Time))) % (60*60*24)) /(60*60) as 'TOTAL' from log group by Name";
+            //string sql = " SELECT Name , CardID , VehicleID ,Date, min(Time) as 'IN' , max(Time) as 'OUT', ((((max(Time)) - (min(Time))) % (60*60*24)) % (60*60))/60 as 'TOTAL' from log group by Name";
             command = new MySqlCommand(sql, connection);
+            command.ExecuteNonQuery();
             adapter = new MySqlDataAdapter(command);
-
             adapter.Fill(table);
             dataGridView1.DataSource = table;
 
-
+            
         }
 
     }
