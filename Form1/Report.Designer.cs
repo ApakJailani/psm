@@ -37,36 +37,38 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(26, 80);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Location = new System.Drawing.Point(21, 111);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(564, 327);
+            this.dataGridView1.Size = new System.Drawing.Size(789, 402);
             this.dataGridView1.TabIndex = 0;
             // 
             // txt1
             // 
-            this.txt1.Location = new System.Drawing.Point(177, 32);
+            this.txt1.Location = new System.Drawing.Point(236, 39);
+            this.txt1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txt1.Name = "txt1";
-            this.txt1.Size = new System.Drawing.Size(100, 20);
+            this.txt1.Size = new System.Drawing.Size(132, 22);
             this.txt1.TabIndex = 1;
             // 
             // txt2
             // 
-            this.txt2.Location = new System.Drawing.Point(314, 32);
+            this.txt2.Location = new System.Drawing.Point(419, 39);
+            this.txt2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txt2.Name = "txt2";
-            this.txt2.Size = new System.Drawing.Size(100, 20);
+            this.txt2.Size = new System.Drawing.Size(132, 22);
             this.txt2.TabIndex = 2;
             // 
             // Report
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 460);
+            this.ClientSize = new System.Drawing.Size(839, 566);
             this.Controls.Add(this.txt2);
             this.Controls.Add(this.txt1);
             this.Controls.Add(this.dataGridView1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Report";
             this.Text = "Report";
             this.Load += new System.EventHandler(this.Report_Load);
