@@ -21,7 +21,6 @@ namespace Form1
         {
             InitializeComponent();
             timer1.Start();
-  
         }
         private void SetText(string text)
         {
@@ -55,7 +54,7 @@ namespace Form1
         }
         private void SetPark(string park)
         {
-            this.txtParking.Text = park;
+            this.lblParking2.Text = park;
         }
 
 
@@ -63,6 +62,7 @@ namespace Form1
         {
             string[] ports = SerialPort.GetPortNames();
             cboPort.Items.AddRange(ports);
+
             //serialPort1.DtrEnable = true;
             //serialPort1.RtsEnable = true;
             //cboPort.SelectedIndex = 0;
@@ -78,7 +78,7 @@ namespace Form1
             if (mdr.Read())
             {
                 SetTextCallback park = new SetTextCallback(SetPark);
-                this.Invoke(park, new object[] { txtParking.Text = mdr.GetString("QtyParking") });
+                this.Invoke(park, new object[] { lblParking2.Text = mdr.GetString("QtyParking") });
             }
             mdr.Close();
             sqlconn.Close();
@@ -95,7 +95,6 @@ namespace Form1
                 serialPort1.Open();
                 Thread workerThread = new Thread(dataLoop);
                 workerThread.Start();
-                
             }
             catch (Exception ex)
             {
@@ -114,17 +113,11 @@ namespace Form1
 
         public void dataLoop()
         {
-
             string txtUid, txtName, txtCarid, txtInOut;
             if (serialPort1.IsOpen)
             {
-                
-                //serialPort1.DiscardInBuffer();
                 SetTextCallback d = new SetTextCallback(SetText);
                 this.Invoke(d, new object[] { txtUid = serialPort1.ReadLine() });
-                //serialPort1.Close();
-                //txtUid.Text = entrada;
-                //this.Invoke(d, new object[] { text + " (Invoke)" });
                 MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
                 MySqlCommand command;
 
@@ -137,7 +130,6 @@ namespace Form1
                 int i = ds.Tables[0].Rows.Count;
                 if (i > 0)
                 {
-                    //serialPort1.Close();
                     string check = string.Format("SELECT status FROM user WHERE uid = '" + txtUid + "'");
                     command = new MySqlCommand(check, sqlconn);
                     MySqlDataReader drr;
@@ -196,10 +188,10 @@ namespace Form1
                             sqlconn.Close();
 
 
+
+                            serialPort1.WriteLine("1");
+                            MessageBox.Show("SUCCESS IN");
                             
-
-                            MessageBox.Show("Success IN");
-
                             //serialPort1.Write("1");
 
                         }
@@ -254,10 +246,10 @@ namespace Form1
 
 
                             sqlconn.Close();
-
-                            MessageBox.Show("Success OUT");
-
-                            //serialPort1.Write("2");
+                            serialPort1.WriteLine("1");
+                            MessageBox.Show("SUCCESS OUT");
+                            
+                            
 
                         }
 
@@ -267,13 +259,13 @@ namespace Form1
                 }
                 else
                 {
-                    //txtUid = "";
-                    //serialPort1.Write("2");
-                    MessageBox.Show("Invalid Card");
+                    serialPort1.Write("2");
+                    MessageBox.Show("INVALID CARD");
+                    
                 }
 
             }
- 
+            
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -284,6 +276,28 @@ namespace Form1
             {
                 serialPort1.Close();
                 MessageBox.Show("Port Close");
+
+                txtUid.Clear();
+                txtName.Clear();
+                txtCarid.Clear();
+                txtInOut.Clear();
+                //txtParking.Clear();
+                lblParking2.Text = "";
+
+                MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
+                MySqlCommand command;
+                sqlconn.Open();
+                MySqlDataReader mdr;
+                string parkk = string.Format("SELECT QtyParking FROM parking");
+                command = new MySqlCommand(parkk, sqlconn);
+                mdr = command.ExecuteReader();
+                if (mdr.Read())
+                {
+                    SetTextCallback park = new SetTextCallback(SetPark);
+                    this.Invoke(park, new object[] { lblParking2.Text = mdr.GetString("QtyParking") });
+                }
+                mdr.Close();
+                sqlconn.Close();
             }
             catch (Exception ex)
             {
@@ -304,7 +318,8 @@ namespace Form1
             txtName.Clear();
             txtCarid.Clear();
             txtInOut.Clear();
-            txtParking.Clear();
+            //txtParking.Clear();
+            lblParking2.Text = "";
 
             MySqlConnection sqlconn = new MySqlConnection("server=localhost;user id=root;database=psm;password=Abc12345;");
             MySqlCommand command;
@@ -316,7 +331,7 @@ namespace Form1
             if (mdr.Read())
             {
                 SetTextCallback park = new SetTextCallback(SetPark);
-                this.Invoke(park, new object[] { txtParking.Text = mdr.GetString("QtyParking") });
+                this.Invoke(park, new object[] { lblParking2.Text = mdr.GetString("QtyParking") });
             }
             mdr.Close();
             sqlconn.Close();

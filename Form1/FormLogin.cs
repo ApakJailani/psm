@@ -32,7 +32,7 @@ namespace Form1
             }
             else
             {
-                MessageBox.Show("Check your username and password");
+                MessageBox.Show("Check your USERNAME and PASSWORD");
                 txtUsername.Text = "";
                 txtPassword.Text = "";
             }
@@ -42,5 +42,6 @@ namespace Form1
         {
             this.Close();
         }
+
     }
 }

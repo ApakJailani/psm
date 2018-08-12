@@ -30,34 +30,23 @@ namespace Form1
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             MySqlCommand command;
 
-            string query = "SELECT * from log";
-            //string query = "SELECT idlog as 'ID' , name as 'Name' , uid as 'Card ID' , carid as 'Vehicle ID' , status as 'Status' , time as 'Time' from psm.log;";
+            string query = "SELECT ID, Name, CardID as 'Card ID', VehicleID, Time, Status from log";
             command = new MySqlCommand(query, connection);
-            
             adapter.SelectCommand = command;
-            
-           
-            /*table.Columns.Add("ID");
-            table.Columns.Add("Name");
-            table.Columns.Add("Card ID");
-            table.Columns.Add("Vehicle ID");
-            table.Columns.Add("Status");
-            table.Columns.Add("Time");*/
-
             adapter.Fill(table); 
             dataGridView1.DataSource = table;
-            
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            
             DataView dv = new DataView(table);
-            //dv.RowFilter = string.Format("'Vehicle ID' LIKE '%{0}%'", txtSearch.Text);
             dv.RowFilter = string.Format("VehicleID LIKE '%{0}%'", txtSearch.Text);
-            //dv.RowFilter = string.Format("SELECT * FROM log WHERE carid = " + txtSearch.Text);
-            //dataGridView1.DataSource = bs;
             dataGridView1.DataSource = dv;
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

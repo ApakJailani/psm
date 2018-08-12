@@ -55,6 +55,7 @@
             this.txtUid.Location = new System.Drawing.Point(224, 159);
             this.txtUid.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtUid.Name = "txtUid";
+            this.txtUid.ReadOnly = true;
             this.txtUid.Size = new System.Drawing.Size(100, 22);
             this.txtUid.TabIndex = 1;
             // 
